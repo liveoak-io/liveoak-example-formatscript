@@ -1,6 +1,7 @@
 {
   "id" : "formatscript",
   "name" : "formatscript",
+  "example" : true,
   "resources" : {
     "client" : {
       "type" : "aggregating-filesystem",
