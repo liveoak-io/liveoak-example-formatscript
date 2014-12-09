@@ -14,7 +14,7 @@ function preCreate(request, libraries) {
 
     // check that we have the right amount of properties
     // Here we are enforcing that IDs have to be specified and not created by the system.
-    if (properties.id == null || properties.size() != 4) {
+    if (resource.id == null || properties.size() != 3) {
         return new liveoak.NotAcceptableError("A product must have and only have an ID, name, description and price when creating");
     } else {
         // check if the properties are valid 
@@ -26,11 +26,6 @@ function preUpdate(request, libraries) {
     // get the resoure's properties
     var properties = request.resource.properties;
    
-    // some clients may send the id as a property on an update. If that is the case, remove it.
-    if (properties.id != null) {
-      properties.remove("id");
-    }
- 
     // check if we have the right amount of properties.
     // Note that on an update, the ID is no longer a property but a parameter of the resource object
     if (properties.size() != 3) {
@@ -49,7 +44,7 @@ function checkProduct(properties) {
 
     // check that price is a proper monentary amount
     var price = properties.price;
-    var dollarRegExp = /^[0-9]\d*\.\d{2}?/
+    var dollarRegExp = /^[0-9]\d*\.\d{2}?/;
     if (!(typeof price == "number") || !(dollarRegExp.test(price))) {
         return new liveoak.NotAcceptableError("A product's price must be a positive dollar amount (x.xx)");
     }
